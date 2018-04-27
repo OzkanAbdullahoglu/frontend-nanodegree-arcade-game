@@ -138,9 +138,10 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
+if(gameStart){
         renderEntities();
     }
+}
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -155,7 +156,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-        //createGemStones.render();
+        createGemStones.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -163,6 +164,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+//document.querySelectorAll()
         // noop
     }
 
@@ -176,7 +178,14 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/Gem Blue.png'
+        'images/Gem Blue.png',
+        'images/Gem Orange.png',
+        'images/Gem Green.png',
+        'images/Heart.png',
+        'images/char-horn-girl.png',
+        'images/char-cat-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 

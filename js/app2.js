@@ -2,6 +2,8 @@
 let enemySpeed = 100;
 let allEnemies = [];
 let succeed = false;
+//let deneme = [];
+
 const defaultStart = {
 
   line: {
@@ -20,6 +22,7 @@ const defaultStart = {
   }
 }
 
+
 class Enemy {
   constructor(x = 0, y) {
     // Variables applied to each of our instances go here,
@@ -33,7 +36,6 @@ class Enemy {
     let speed = Math.floor(Math.random() * 3) * enemySpeed;
     this.speed = speed === 0 ? enemySpeed : speed;
   };
-
   update(dt) {
 
     if (this.speed === 0) {
@@ -50,7 +52,6 @@ class Enemy {
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
-
   collision() {
     //console.log(player.x);
     //console.log(Math.round(this.x));
@@ -60,6 +61,15 @@ class Enemy {
     }
   }
 }
+
+
+
+/*let createGemStone1 = new GemStones(Math.floor(Math.random() * 5) + 1, Math.floor(Math.random() * 3) + 1);
+let createGemStone2 = new GemStones(Math.floor(Math.random() * 5) + 1, Math.floor(Math.random() * 3) + 1);
+let createGemStone3 = new GemStones(Math.floor(Math.random() * 5) + 1, Math.floor(Math.random() * 3) + 1);
+deneme.push(createGemStone1,createGemStone2,createGemStone3);*/
+
+
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -76,16 +86,13 @@ class Player {
     this.col = 3;
     this.line = 5;
   }
-
   update() {
     this.x = defaultStart.column[this.col];
     this.y = defaultStart.line[this.line];
   }
-
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
-
   handleInput(den) {
     if (den == 'left' && this.col > 1) {
       this.col--;
@@ -96,68 +103,74 @@ class Player {
     } else if (den == 'down' && this.line < 5) {
       this.line++;
     }
-    if (this.line === 0) {
-      let succeed = true;
-      console.log(succeed);
-      player.reset();
-      createGemStones.show();
+    if(this.line === 0) {
+        let succeed = true;
+        console.log(succeed);
+        player.reset();
+        createGemStones.show();
+
+        //createGemStones();
+        //createGemStones.update();
+        //console.log(createGemStones.update());
+        
     }
   }
-
   reset() {
     this.col = 3;
     this.line = 5;
     let succeed = false;
+    
   }
-}
-
-const getStones = ['images/Gem Blue.png','images/Gem Orange.png','images/Gem Green.png','images/Heart.png'];
-let random = Math.floor(Math.random() * 4);
-
+}   
 
 class GemStones {
+    constructor() {
+        //this.col = Math.floor(Math.random() * 5) + 1;
+        //this.line = Math.floor(Math.random() * 3) + 1;
     
-  constructor() {
-    this.sprite = getStones[random];
-    this.col = -1;
-    this.line = -1;
-  }
-
-  update() {
-    this.x = defaultStart.column[this.col]+10;
-    this.y = defaultStart.line[this.line]+35;
-    //console.log(this.x);
+        this.sprite = 'images/Gem Blue.png';
+        this.col = -1;
+        this.line = -1;
+    }
+    
+    update() {        
+   this.x = defaultStart.column[this.col];
+    this.y = defaultStart.line[this.line];
     this.collect();
-  }
-
-  show() {
-    this.sprite = getStones[random];
+}
+show() {
+    this.sprite = 'images/Gem Blue.png';
     this.col = Math.floor(Math.random() * 5) + 1;
     this.line = Math.floor(Math.random() * 3) + 1;
-  }
-
-  hide() {
-    this.sprite = getStones[random];
-    this.col = -1;
-    this.line = -1;
-  }
-
+}
+hide() {
+    this.sprite = 'images/Gem Blue.png';
+        this.col = -1;
+        this.line = -1;
+}
+   
+  
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    
   }
-
-  collect() {
-    //console.log(player.x);
-    if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) -35 == player.y) {
-
+  collect() {if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) == player.y) {
       console.log('bingo2');
       player.reset();
       this.hide();
-    }
+
   }
 }
-
+  /*collision() {
+    //console.log(player.x);
+    //console.log(Math.round(this.x));
+    if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) == player.y) {
+      console.log('bingo2');
+      player.reset();
+    }*/
+}
 const createGemStones = new GemStones();
+
 let enemy1 = new Enemy(-150, defaultStart.line[1]);
 let enemy2 = new Enemy(-250, defaultStart.line[2]);
 let enemy3 = new Enemy(-350, defaultStart.line[3]);
