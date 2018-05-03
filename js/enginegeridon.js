@@ -12,8 +12,6 @@
  * This engine makes the canvas' context (ctx) object globally available to make 
  * writing app.js a little simpler to work with.
  */
-  let first= document.querySelector('#game-start');
-     let chars =document.querySelectorAll('.character');
 
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
@@ -97,7 +95,6 @@ var Engine = (function(global) {
         });
         player.update();
         createGemStones.update();
-        addRock.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -148,44 +145,6 @@ if(readyCanvas){
     }
 }
 
-function gameOver() {
-    if(lives== 0) {
-        //allEnemies = [];
-        readyCanvas = false;
-        /* for(let i =0;i<chars.length;i++){
-        chars[i].style.visibility='visible';
-    };*/
-
-        setTimeout(function() { $('#modalCenter').modal('show'); }, 1000);
-        let modalSelector = document.querySelector('.modal-body');
-        let outputOne = document.createElement('p');
-        let outputTwo = document.createElement('p');
-        modalSelector.innerHTML = '<p> Your score is : ' + score + ' </p>';
-        modalSelector.appendChild(outputOne);
-        //modalSelector.appendChild(outputTwo);
-        outputOne.innerHTML = ' Your level is : ' + level;
-        document.querySelector('.btn-primary').addEventListener('click', function(){
-           
-    
-          /*  enemySpeed = 100;
-            console.log(enemySpeed);
-    lives = 3;
-    score = 0;
-    level = 1;
-    enemy1 = new Enemy(-150, defaultStart.line[1]);
-    enemy2 = new Enemy(-250, defaultStart.line[2]);
-    enemy3 = new Enemy(-350, defaultStart.line[3]);
-    allEnemies.push(enemy1, enemy2, enemy3);
-        });
-        
-        //console.log(restart());*/
-location.reload();           
-        
-            
-        });
-    }
-}
-
 function infoAddCanvas () {
     ctx.font = '20px Titan One';
     for(let i=0; i<=lives-1; i++){
@@ -198,18 +157,22 @@ function infoAddCanvas () {
 
 }
 
-/*function restart () {
-  
-    player.reset();
-    enemySpeed = 100;
-    lives = 3;
-    score = 0;
-    level = 1;
-    enemy1 = new Enemy(-150, defaultStart.line[1]);
-    enemy2 = new Enemy(-250, defaultStart.line[2]);
-    enemy3 = new Enemy(-350, defaultStart.line[3]);
-    allEnemies.push(enemy1, enemy2, enemy3);
-}*/
+function gameOver() {
+    if(lives== 0) {
+        setTimeout(function() { $('#modalCenter').modal('show'); }, 1000);
+        let modalSelector = document.querySelector('.modal-body');
+        let outputOne = document.createElement('p');
+        let outputTwo = document.createElement('p');
+        modalSelector.innerHTML = '<p> Your score is : ' + score + ' </p>';
+        modalSelector.appendChild(outputOne);
+        //modalSelector.appendChild(outputTwo);
+        outputOne.innerHTML = ' Your level is : ' + level;
+        document.querySelector('.btn-primary').addEventListener('click', restart);
+            
+        
+            
+        }
+    }
 
 
 
@@ -228,35 +191,32 @@ function infoAddCanvas () {
 
         player.render();
         createGemStones.render();
-        addRock.render();
-
     }
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
-    
     function reset() {
-
-//let first= document.querySelector('#game-start');
+let first= document.querySelector('#game-start');
 console.log(first);
 first.addEventListener('click', function(e){
     let choosenChar = e.target.getAttribute('src');
     console.log(choosenChar);
     player.sprite = choosenChar;
     readyCanvas = true;
-    //let chars =document.querySelectorAll('.character');
+    let chars =document.querySelectorAll('.character');
     for(let i =0;i<chars.length;i++){
         chars[i].style.visibility='hidden';
 
-
-//document.querySelectorAll()
-        // noop
-    }
-});
-
 }
+     
+
+    });
+
+};
+        // noop
+    
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
@@ -275,8 +235,7 @@ first.addEventListener('click', function(e){
         'images/char-horn-girl.png',
         'images/char-cat-girl.png',
         'images/char-pink-girl.png',
-        'images/char-princess-girl.png',
-        'images/Rock.png'
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 

@@ -1,11 +1,18 @@
 body {
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 
 }
 .character {
+	
 	cursor: pointer;
+	visibility: visible;
 }
-.character: hover img{
-	transform: rotate(45deg);
-	background-image: url('images/Selector.png');
+img:hover {
+	
+	background-image: url('selector.png');
+	
+}
+.choosen: {
+border: 4 px #eef solid;
 }

@@ -1,14 +1,11 @@
 // Enemies our player must avoid
-let enemySpeed = 10;
+let enemySpeed = 100;
 let allEnemies = [];
 let succeed = false;
 let level = 1;
 let score = 0;
 let lives = 3;
 let readyCanvas = false;
-let gemLocations = [];
-let stoneLocations = [{line: -1, col: -1}];
-
 const defaultStart = {
 
   line: {
@@ -65,6 +62,7 @@ class Enemy {
       console.log('bingo');
       player.reset();
       lives-=1;
+      console.log(lives);
     }
   }
 }
@@ -95,34 +93,23 @@ class Player {
   }
 
   handleInput(den) {
-    console.log(this.line);
-    if (den == 'left' && this.col > 1  && this.line !== stoneLocations[stoneLocations.length-1].line) {
+    if (den == 'left' && this.col > 1) {
       this.col--;
-
-
-      
-    } else if (den == 'right' && this.col < 5 && this.line !== stoneLocations[stoneLocations.length-1].line) {
+    } else if (den == 'right' && this.col < 5) {
       this.col++;
-    } else if (den == 'up' && this.line >= 1 && this.col !== stoneLocations[stoneLocations.length-1].col) {
+    } else if (den == 'up' && this.line >= 1) {
       this.line--;
-    } else if (den == 'down' && this.line < 5 && this.col !== stoneLocations[stoneLocations.length-1].col) {
+    } else if (den == 'down' && this.line < 5) {
       this.line++;
     }
     if (this.line === 0) {
       let succeed = true;
-      console.log(succeed);
       score+=100;
       level+=1;
+      console.log(succeed);
+      console.log(score);
       player.reset();
       createGemStones.show();
-      if (level > 2 ){
-        enemySpeed *=1.25;
-        console.log(enemySpeed);
-        addRock.place();
-        
-
-
-      }
     }
   }
 
@@ -131,19 +118,17 @@ class Player {
     this.line = 5;
     let succeed = false;
   }
+
 }
 
-/*const collections = ['images/Gem Blue.png','images/Gem Orange.png','images/Gem Green.png','images/Heart.png'];
+const getStones = ['images/Gem Blue.png','images/Gem Orange.png','images/Gem Green.png','images/Heart.png'];
 let random = Math.floor(Math.random() * 4);
-console.log(random);*/
-
 
 
 class GemStones {
     
   constructor() {
-    this.sprite = this.choose();
-    //console.log(collections[random]);
+    this.sprite = getStones[random];
     this.col = -1;
     this.line = -1;
   }
@@ -156,25 +141,13 @@ class GemStones {
   }
 
   show() {
-    this.sprite = this.choose();
-    //console.log(collections[random]);
+    this.sprite = getStones[random];
     this.col = Math.floor(Math.random() * 5) + 1;
     this.line = Math.floor(Math.random() * 3) + 1;
-    gemLocations.push({line: this.line, col: this.col});
-    console.log(gemLocations);
-    console.log(gemLocations.length);
-    console.log(gemLocations[gemLocations.length-1].col);
-
-  }
-
-  score() {
-    score+= 50;
-    console.log(score);
   }
 
   hide() {
-    //this.sprite = collections[random];
-    //console.log(collections[random]);
+    this.sprite = getStones[random];
     this.col = -1;
     this.line = -1;
   }
@@ -183,10 +156,9 @@ class GemStones {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 
-  choose() {
-    const collections = ['images/Gem Blue.png','images/Gem Orange.png','images/Gem Green.png','images/Heart.png'];
-let random = Math.floor(Math.random() * 4);
-return collections[random];
+  score() {
+  	score+= 50;
+  	console.log(score);
   }
 
   collect() {
@@ -194,79 +166,13 @@ return collections[random];
     if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) -35 == player.y) {
 
       console.log('bingo2');
-      //player.reset();
+      player.reset();
       this.hide();
-      this.score();
-      if(this.sprite ==='images/Heart.png' && lives<6 ) {
-        console.log('true');
-        console.log(this.sprite);
-       lives+=1;
-      }
+      this.score()
     }
   }
 }
 
-class Block {
-
-  constructor() {
-    this.sprite = 'images/Rock.png';
-    //console.log(collections[random]);
-    this.col = -1;
-    this.line = -1;
-  }
-
-  update() {
-    this.x = defaultStart.column[this.col]+10;
-    this.y = defaultStart.line[this.line]+35;
-    //console.log(this.x);
-    this.blockage();
-  }
-
-  place() {
-    let randomLine = Math.floor(Math.random() * 3) + 1;
-    let randomColumn = Math.floor(Math.random() * 5) + 1;
-    this.sprite = 'images/Rock.png';
-    //console.log(collections[random]);
-    if (randomLine !== gemLocations[gemLocations.length-1].line && randomColumn !== gemLocations[gemLocations.length-1].col) {
-      console.log('truestone');
-      this.col = randomColumn;  
-      this.line = randomLine;
-    } else  if(gemLocations[gemLocations.length-1].col === 5) {
-      
-      this.col = gemLocations[gemLocations.length-1].col -1;
-      this.line = gemLocations[gemLocations.length-1].line ;
-      console.log('truestone1');
-    } else {
-      this.col = gemLocations[gemLocations.length-1].col +1;
-      this.line = gemLocations[gemLocations.length-1].line ;
-console.log('truestone2');
-    }
-    stoneLocations.push({line: this.line, col: this.col});
-    console.log(stoneLocations[stoneLocations.length-1].col);
-     console.log(stoneLocations[stoneLocations.length-1].line);
-    console.log(stoneLocations);
-    console.log(this.line);
-    console.log(this.col);
-    }
-    
-  
-
- render() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  }
-
-  blockage() {
-     if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) -35 == player.y) {
-
-      console.log('bingo3');
-      //player.reset();
-      
-      
-  }
-
-}
-}
-const addRock = new Block();
 const createGemStones = new GemStones();
 let enemy1 = new Enemy(-150, defaultStart.line[1]);
 let enemy2 = new Enemy(-250, defaultStart.line[2]);
@@ -275,6 +181,21 @@ allEnemies.push(enemy1, enemy2, enemy3);
 const player = new Player();
 console.log(player);
 
+class Restart {
+	constructor() {
+		 player.reset();
+    enemySpeed = 100;
+    lives = 3;
+    score = 0;
+    level = 1;
+    enemy1 = new Enemy(-150, defaultStart.line[1]);
+    enemy2 = new Enemy(-250, defaultStart.line[2]);
+    enemy3 = new Enemy(-350, defaultStart.line[3]);
+    allEnemies.push(enemy1, enemy2, enemy3);
+}
+}
+const restart = new Restart();
+console.log(restart);
 
 
 
