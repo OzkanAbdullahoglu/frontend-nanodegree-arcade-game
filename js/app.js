@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-let enemySpeed = 10;
+let enemySpeed = 0;
 let allEnemies = [];
 let succeed = false;
 let level = 1;
@@ -7,7 +7,7 @@ let score = 0;
 let lives = 3;
 let readyCanvas = false;
 let gemLocations = [];
-let stoneLocations = [{line: -1, col: -1}];
+let stoneLocations = [];
 
 const defaultStart = {
 
@@ -95,18 +95,40 @@ class Player {
   }
 
   handleInput(den) {
-    console.log(this.line);
-    if (den == 'left' && this.col > 1  && this.line !== stoneLocations[stoneLocations.length-1].line) {
+    let target = this;  
+
+    if (den == 'left' && this.col > 1 ) {
       this.col--;
-
-
+      stoneLocations.forEach(function(e){
+        if(e.col === target.col && e.line === target.line){
+target.col++;
+        }
+      }); 
       
-    } else if (den == 'right' && this.col < 5 && this.line !== stoneLocations[stoneLocations.length-1].line) {
+    } else if (den == 'right' && this.col < 5) {
+      console.log(target.col);
       this.col++;
-    } else if (den == 'up' && this.line >= 1 && this.col !== stoneLocations[stoneLocations.length-1].col) {
+      stoneLocations.forEach(function(e){
+        if(e.col === target.col && e.line === target.line){
+target.col--;
+        }
+      });
+    } else if (den == 'up' && this.line >= 1 ) {
+      console.log(target.line);
       this.line--;
-    } else if (den == 'down' && this.line < 5 && this.col !== stoneLocations[stoneLocations.length-1].col) {
+      stoneLocations.forEach(function(e){
+        if(e.col === target.col && e.line === target.line){
+target.line++;
+        }
+      });
+    } else if (den == 'down' && this.line < 5 ) {
+      console.log(target.line);
       this.line++;
+      stoneLocations.forEach(function(e){
+        if(e.col === target.col && e.line === target.line){
+target.line--;
+        }
+      });
     }
     if (this.line === 0) {
       let succeed = true;
@@ -118,10 +140,9 @@ class Player {
       if (level > 2 ){
         enemySpeed *=1.25;
         console.log(enemySpeed);
+        stoneLocations = [];
         addRock.place();
-        
-
-
+      
       }
     }
   }
@@ -133,31 +154,24 @@ class Player {
   }
 }
 
-/*const collections = ['images/Gem Blue.png','images/Gem Orange.png','images/Gem Green.png','images/Heart.png'];
-let random = Math.floor(Math.random() * 4);
-console.log(random);*/
-
-
 
 class GemStones {
     
   constructor() {
     this.sprite = this.choose();
-    //console.log(collections[random]);
-    this.col = -1;
+        this.col = -1;
     this.line = -1;
   }
 
   update() {
     this.x = defaultStart.column[this.col]+10;
     this.y = defaultStart.line[this.line]+35;
-    //console.log(this.x);
-    this.collect();
+        this.collect();
   }
 
   show() {
     this.sprite = this.choose();
-    //console.log(collections[random]);
+    
     this.col = Math.floor(Math.random() * 5) + 1;
     this.line = Math.floor(Math.random() * 3) + 1;
     gemLocations.push({line: this.line, col: this.col});
@@ -173,8 +187,7 @@ class GemStones {
   }
 
   hide() {
-    //this.sprite = collections[random];
-    //console.log(collections[random]);
+    
     this.col = -1;
     this.line = -1;
   }
@@ -190,11 +203,11 @@ return collections[random];
   }
 
   collect() {
-    //console.log(player.x);
+   
     if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) -35 == player.y) {
 
       console.log('bingo2');
-      //player.reset();
+      
       this.hide();
       this.score();
       if(this.sprite ==='images/Heart.png' && lives<6 ) {
@@ -210,24 +223,21 @@ class Block {
 
   constructor() {
     this.sprite = 'images/Rock.png';
-    //console.log(collections[random]);
-    this.col = -1;
+        this.col = -1;
     this.line = -1;
   }
 
   update() {
     this.x = defaultStart.column[this.col]+10;
     this.y = defaultStart.line[this.line]+35;
-    //console.log(this.x);
-    this.blockage();
+       this.blockage();
   }
 
   place() {
     let randomLine = Math.floor(Math.random() * 3) + 1;
     let randomColumn = Math.floor(Math.random() * 5) + 1;
     this.sprite = 'images/Rock.png';
-    //console.log(collections[random]);
-    if (randomLine !== gemLocations[gemLocations.length-1].line && randomColumn !== gemLocations[gemLocations.length-1].col) {
+        if (randomLine !== gemLocations[gemLocations.length-1].line && randomColumn !== gemLocations[gemLocations.length-1].col) {
       console.log('truestone');
       this.col = randomColumn;  
       this.line = randomLine;
@@ -258,14 +268,11 @@ console.log('truestone2');
   blockage() {
      if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) -35 == player.y) {
 
-      console.log('bingo3');
-      //player.reset();
-      
-      
+      console.log('bingo3');    
   }
+}
+}
 
-}
-}
 const addRock = new Block();
 const createGemStones = new GemStones();
 let enemy1 = new Enemy(-150, defaultStart.line[1]);

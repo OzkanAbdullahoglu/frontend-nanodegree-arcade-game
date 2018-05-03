@@ -150,11 +150,9 @@ if(readyCanvas){
 
 function gameOver() {
     if(lives== 0) {
-        //allEnemies = [];
+        
         readyCanvas = false;
-        /* for(let i =0;i<chars.length;i++){
-        chars[i].style.visibility='visible';
-    };*/
+       
 
         setTimeout(function() { $('#modalCenter').modal('show'); }, 1000);
         let modalSelector = document.querySelector('.modal-body');
@@ -166,21 +164,7 @@ function gameOver() {
         outputOne.innerHTML = ' Your level is : ' + level;
         document.querySelector('.btn-primary').addEventListener('click', function(){
            
-    
-          /*  enemySpeed = 100;
-            console.log(enemySpeed);
-    lives = 3;
-    score = 0;
-    level = 1;
-    enemy1 = new Enemy(-150, defaultStart.line[1]);
-    enemy2 = new Enemy(-250, defaultStart.line[2]);
-    enemy3 = new Enemy(-350, defaultStart.line[3]);
-    allEnemies.push(enemy1, enemy2, enemy3);
-        });
-        
-        //console.log(restart());*/
 location.reload();           
-        
             
         });
     }
@@ -197,21 +181,6 @@ function infoAddCanvas () {
     ctx.fillText('Score' +' '+ score,380,30);
 
 }
-
-/*function restart () {
-  
-    player.reset();
-    enemySpeed = 100;
-    lives = 3;
-    score = 0;
-    level = 1;
-    enemy1 = new Enemy(-150, defaultStart.line[1]);
-    enemy2 = new Enemy(-250, defaultStart.line[2]);
-    enemy3 = new Enemy(-350, defaultStart.line[3]);
-    allEnemies.push(enemy1, enemy2, enemy3);
-}*/
-
-
 
 
     /* This function is called by the render function and is called on each game
