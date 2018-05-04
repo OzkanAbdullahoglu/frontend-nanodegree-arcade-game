@@ -14,6 +14,7 @@
  */
 let first = document.querySelector('#game-start');
 let chars = document.querySelectorAll('.character');
+let readyCanvas = false;
 
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
@@ -126,7 +127,7 @@ var Engine = (function(global) {
       row, col;
 
     // Before drawing, clear existing canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     /* Loop through the number of rows and columns we've defined above
      * and, using the rowImages array, draw the correct image for that
@@ -152,7 +153,7 @@ var Engine = (function(global) {
   }
 
   function gameOver() {
-    if (lives == 0) {
+    if (lives === 0) {
 
       readyCanvas = false;
 
@@ -160,10 +161,10 @@ var Engine = (function(global) {
       setTimeout(function() { $('#modalCenter').modal('show'); }, 1000);
       let modalSelector = document.querySelector('.modal-body');
       let outputOne = document.createElement('p');
-      let outputTwo = document.createElement('p');
+      
       modalSelector.innerHTML = '<p> Your score is : ' + score + ' </p>';
       modalSelector.appendChild(outputOne);
-      //modalSelector.appendChild(outputTwo);
+      
       outputOne.innerHTML = ' Your level is : ' + level;
       document.querySelector('.btn-primary').addEventListener('click', function() {
         location.reload();
@@ -211,8 +212,8 @@ var Engine = (function(global) {
       for (let i = 0; i < chars.length; i++) {
         chars[i].style.display = 'none';
       }
-      header = doc.createElement('h1');
-      header.innerHTML = 'Game Arcade Clone'
+      let header = doc.createElement('h1');
+      header.innerHTML = 'Game Arcade Clone';
       let deneme1 = doc.getElementsByClassName('col-md');
       deneme1[0].insertBefore(header, deneme1[0].childNodes[0]);
       let subHeader = doc.getElementsByTagName('h2');

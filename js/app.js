@@ -1,11 +1,11 @@
 // Enemies our player must avoid
 let enemySpeed = 50;
 let allEnemies = [];
-let succeed = false;
+
 let level = 1;
 let score = 0;
 let lives = 3;
-let readyCanvas = false;
+
 let gemLocations = [];
 let stoneLocations = [];
 
@@ -32,18 +32,18 @@ const defaultStart = {
     4: 303,
     5: 404
   }
-}
+};
 
 class Enemy {
 
-  constructor(x = 0, y) {
+  constructor(x , y) {
 
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
     let speed = Math.floor(Math.random() * 2) * enemySpeed;
     this.speed = speed === 0 ? enemySpeed : speed;
-  };
+  }
 
   update(dt) {
 
@@ -126,8 +126,8 @@ class Player {
       });
     }
     if (this.line === 0) {
-      let succeed = true;
-      console.log(succeed);
+      
+     
       score += 100;
       level += 1;
       player.reset();
@@ -145,7 +145,7 @@ class Player {
 
     this.col = 3;
     this.line = 5;
-    let succeed = false;
+    
   }
 }
 
@@ -246,8 +246,8 @@ class Block {
 const addRock = new Block();
 const createGemStones = new GemStones();
 let enemy1 = new Enemy(-150, defaultStart.line[1]);
-let enemy2 = new Enemy(-250, defaultStart.line[2]);
-let enemy3 = new Enemy(-350, defaultStart.line[3]);
+let enemy2 = new Enemy(-350, defaultStart.line[2]);
+let enemy3 = new Enemy(-550, defaultStart.line[3]);
 allEnemies.push(enemy1, enemy2, enemy3);
 const player = new Player();
 
