@@ -14,8 +14,13 @@
  */
 
 let first = document.querySelector('#game-start');
-let chars = document.querySelectorAll('.character');
+let chars = document.querySelectorAll('input');
 let readyCanvas = false;
+for(i=0;i<chars.length;i++){
+chars[i].focus();
+console.log(chars[i]);
+}
+//chars.focus();
 
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
@@ -198,8 +203,10 @@ var Engine = (function(global) {
    */
 
   function reset() {
+    
 
     first.addEventListener('click', function(e) {
+console.log(e.target);
       let choosenChar = e.target.getAttribute('src');
       player.sprite = choosenChar;
       readyCanvas = true;
@@ -213,7 +220,6 @@ var Engine = (function(global) {
       let subHeader = doc.getElementsByTagName('h2');
       subHeader[0].style.display = 'none';
     });
-
   }
 
   /* Go ahead and load all of the images we know we're going to need to
