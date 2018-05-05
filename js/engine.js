@@ -12,6 +12,7 @@
  * This engine makes the canvas' context (ctx) object globally available to make 
  * writing app.js a little simpler to work with.
  */
+
 let first = document.querySelector('#game-start');
 let chars = document.querySelectorAll('.character');
 let readyCanvas = false;
@@ -26,7 +27,6 @@ var Engine = (function(global) {
     canvas = doc.createElement('canvas'),
     ctx = canvas.getContext('2d'),
     lastTime;
-
   canvas.width = 505;
   canvas.height = 606;
   //canvas.classList.add('canvass');
@@ -154,17 +154,12 @@ var Engine = (function(global) {
 
   function gameOver() {
     if (lives === 0) {
-
       readyCanvas = false;
-
-
       setTimeout(function() { $('#modalCenter').modal('show'); }, 1000);
       let modalSelector = document.querySelector('.modal-body');
       let outputOne = document.createElement('p');
-      
       modalSelector.innerHTML = '<p> Your score is : ' + score + ' </p>';
       modalSelector.appendChild(outputOne);
-      
       outputOne.innerHTML = ' Your level is : ' + level;
       document.querySelector('.btn-primary').addEventListener('click', function() {
         location.reload();
@@ -180,7 +175,6 @@ var Engine = (function(global) {
     ctx.fillText('Level:' + ' ' + level, 250, 30);
     ctx.fillText('Score:' + ' ' + score, 380, 30);
   }
-
 
   /* This function is called by the render function and is called on each game
    * tick. Its purpose is to then call the render functions you have defined
