@@ -255,7 +255,11 @@ document.addEventListener('keyup', function(e) {
     37: 'left',
     38: 'up',
     39: 'right',
-    40: 'down'
+    40: 'down',
+    63234: 'left',
+    63232: 'up',
+    63235: 'right',
+    63233: 'down'
   };
   player.handleInput(allowedKeys[e.keyCode]);
 });
