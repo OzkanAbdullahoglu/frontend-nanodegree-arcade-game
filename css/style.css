@@ -30,13 +30,7 @@ input:hover {
   background-image: url('selector.png');
   cursor: pointer;
   outline: 0;
-
 }
-
-/*.character:hover {
-  cursor: pointer;
-  background-image: url('selector.png');
-}*/
 
 .container {
   display: flex;

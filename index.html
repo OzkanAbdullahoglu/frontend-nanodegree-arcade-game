@@ -2,59 +2,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Effective JavaScript: Frogger</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" async>
-    <link rel="stylesheet" href="css/style.css" async>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Effective JavaScript: Frogger</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" async>
+  <link rel="stylesheet" href="css/style.css" async>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md">
-                <h2>Choose a character to start !</h2>
-                <div id="game-start">
-                   
-			<input tabindex=0 type='image' src= 'images/char-boy.png' alt = 'boy char'>
-                    
-      <input tabindex=1 type='image' src= 'images/char-horn-girl.png' alt = 'horn girl char'>
-                    
-      <input tabindex=2 type='image' src= 'images/char-cat-girl.png' alt = 'cat girl char'>
-                    
-      <input tabindex=3 type='image' src= 'images/char-pink-girl.png' alt = 'pink girl char'>
-                    
-      <input tabindex=4 type='image' src= 'images/char-princess-girl.png' alt = 'princess girl char'>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLongTitle">Game Over !</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <div class="container">
+    <div class="row">
+      <div class="col-md">
+        <h2>Choose a character to start !</h2>
+        <div id="game-start">
+          <input type='image' src='images/char-boy.png' alt='boy character'>
+          <input type='image' src='images/char-horn-girl.png' alt='horn girl character'>
+          <input type='image' src='images/char-cat-girl.png' alt='cat girl character'>
+          <input type='image' src='images/char-pink-girl.png' alt='pink girl character'>
+          <input type='image' src='images/char-princess-girl.png' alt='princess girl character'>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLongTitle">Game Over !</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                            </div>
-                            <div class="modal-body">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Play Again</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Play Again</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Modal -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" async>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
-    <script src="js/resources.js" async></script>
-    <script src="js/app.js" async></script>
-    <script src="js/engine.js" async></script>
+  </div>
+  <!-- Modal -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" async>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+  <script src="js/resources.js" async></script>
+  <script src="js/app.js" async></script>
+  <script src="js/engine.js" async></script>
 </body>
 
 </html>

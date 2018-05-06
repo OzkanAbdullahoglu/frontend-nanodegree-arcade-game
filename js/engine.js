@@ -12,16 +12,6 @@
  * This engine makes the canvas' context (ctx) object globally available to make 
  * writing app.js a little simpler to work with.
  */
-
-let first = document.querySelector('#game-start');
-let chars = document.querySelectorAll('input');
-let readyCanvas = false;
-for(i=0;i<chars.length;i++){
-chars[i].focus();
-console.log(chars[i]);
-}
-//chars.focus();
-
 var Engine = (function(global) {
   /* Predefine the variables we'll be using within this scope,
    * create the canvas element, grab the 2D context for that canvas
@@ -34,10 +24,16 @@ var Engine = (function(global) {
     lastTime;
   canvas.width = 505;
   canvas.height = 606;
-  //canvas.classList.add('canvass');
-  let deneme = doc.getElementsByClassName('col-md');
-  deneme[0].appendChild(canvas);
-  //doc.body.appendChild(canvas);
+  // selecting appropriate DOM placement for canvas
+  let canvasPlacement = doc.getElementsByClassName('col-md');
+  // appending canvas
+  canvasPlacement[0].appendChild(canvas);
+  // selecting parent of all characters to manipulate
+  let first = doc.querySelector('#game-start');
+  // selecting all characters to manipulate
+  let chars = doc.querySelectorAll('input');
+  // defining a variable to verify If canvas is ready to start the game 
+  let readyCanvas = false;
 
   /* This function serves as the kickoff point for the game loop itself
    * and handles properly calling the update and render methods.
@@ -130,7 +126,6 @@ var Engine = (function(global) {
       numRows = 6,
       numCols = 5,
       row, col;
-
     // Before drawing, clear existing canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -150,6 +145,7 @@ var Engine = (function(global) {
         ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
       }
     }
+    // If readycanvas is true then render all
     if (readyCanvas) {
       renderEntities();
       infoAddCanvas();
@@ -157,21 +153,33 @@ var Engine = (function(global) {
     }
   }
 
+  /**
+   * @description defining gameover status 
+   * set the readycanvas to false 
+   * displaying the modal 
+   * selecting modal to manipulate
+   * appending player stats into the modal
+   * selecting modal's restart button
+   * reload the game which is triggered by restart button
+   */
   function gameOver() {
     if (lives === 0) {
       readyCanvas = false;
       setTimeout(function() { $('#modalCenter').modal('show'); }, 1000);
-      let modalSelector = document.querySelector('.modal-body');
-      let outputOne = document.createElement('p');
+      let modalSelector = doc.querySelector('.modal-body');
+      let outputOne = doc.createElement('p');
       modalSelector.innerHTML = '<p> Your score is : ' + score + ' </p>';
       modalSelector.appendChild(outputOne);
       outputOne.innerHTML = ' Your level is : ' + level;
-      document.querySelector('.btn-primary').addEventListener('click', function() {
+      doc.querySelector('.btn-primary').addEventListener('click', function() {
         location.reload();
       });
     }
   }
 
+  /**
+   * @description adding player stats and heart images to the canvas
+   */
   function infoAddCanvas() {
     ctx.font = '20px Montserrat';
     for (let i = 0; i <= lives - 1; i++) {
@@ -202,11 +210,14 @@ var Engine = (function(global) {
    * those sorts of things. It's only called once by the init() method.
    */
 
+  /**
+   * @description let user to choose a character 
+   * hiding all characters and first header after choosing period is done
+   * appending a new header to the appropriate place in DOM
+   */
   function reset() {
-    
-
     first.addEventListener('click', function(e) {
-console.log(e.target);
+      console.log(e.target);
       let choosenChar = e.target.getAttribute('src');
       player.sprite = choosenChar;
       readyCanvas = true;
@@ -215,8 +226,7 @@ console.log(e.target);
       }
       let header = doc.createElement('h1');
       header.innerHTML = 'Game Arcade Clone';
-      let deneme1 = doc.getElementsByClassName('col-md');
-      deneme1[0].insertBefore(header, deneme1[0].childNodes[0]);
+      canvasPlacement[0].insertBefore(header, canvasPlacement[0].childNodes[0]);
       let subHeader = doc.getElementsByTagName('h2');
       subHeader[0].style.display = 'none';
     });
@@ -240,7 +250,8 @@ console.log(e.target);
     'images/char-cat-girl.png',
     'images/char-pink-girl.png',
     'images/char-princess-girl.png',
-    'images/Rock.png'
+    'images/Rock.png',
+    'images/Star.png'
   ]);
   Resources.onReady(init);
 

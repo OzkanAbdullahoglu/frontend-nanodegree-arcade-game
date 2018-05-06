@@ -1,27 +1,22 @@
-//Enemyspeed as a start 
+// Enemyspeed as a start 
 let enemySpeed = 50;
-//an empty array to collect enemies
+// an empty array to collect enemies
 let allEnemies = [];
-//variables for player stats
+// variables for player stats
 let level = 1;
 let score = 0;
 let lives = 3;
-//an empty array to collect gem locations
+// an empty array to collect gem locations
 let gemLocations = [];
-//an empty array to collect stone locations
+// an empty array to collect stone locations
 let stoneLocations = [];
-//creating objects for Block,Gemstones and Player 
-
-
-
-//an event listener which disallows space and arrow keys for a better user experience
+// an event listener which disallows space and arrow keys for a better user experience
 window.addEventListener("keydown", function(e) {
-
   if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
     e.preventDefault();
   }
 }, false);
-//default parameters for line and columns in canvas
+// default parameters for line and columns in canvas
 const defaultStart = {
   line: {
     1: 51,
@@ -46,7 +41,6 @@ const defaultStart = {
  * @render rendering enemy 
  * @collision defining what to do in case of intersection of enemy and player
  */
-
 class Enemy {
   constructor(x, y) {
     this.sprite = 'images/enemy-bug.png';
@@ -71,7 +65,6 @@ class Enemy {
   }
   collision() {
     if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) == player.y) {
-      console.log('bingo');
       player.reset();
       lives -= 1;
     }
@@ -88,7 +81,6 @@ class Enemy {
  * @handleinput in case of winning a round incrementing player stats, enemyspeed, placing gem stones, reseting player position
  * @handleinput in case of reaching higher levels (over level 10) placing stone as a complexity factor
  */
-
 class Player {
   constructor() {
     this.sprite = 'images/char-boy.png';
@@ -112,7 +104,6 @@ class Player {
         }
       });
     } else if (den == 'right' && this.col < 5) {
-      console.log(target.col);
       this.col++;
       stoneLocations.forEach(function(e) {
         if (e.col === target.col && e.line === target.line) {
@@ -120,7 +111,6 @@ class Player {
         }
       });
     } else if (den == 'up' && this.line >= 1) {
-      console.log(target.line);
       this.line--;
       stoneLocations.forEach(function(e) {
         if (e.col === target.col && e.line === target.line) {
@@ -128,7 +118,6 @@ class Player {
         }
       });
     } else if (den == 'down' && this.line < 5) {
-      console.log(target.line);
       this.line++;
       stoneLocations.forEach(function(e) {
         if (e.col === target.col && e.line === target.line) {
@@ -137,14 +126,12 @@ class Player {
       });
     }
     if (this.line === 0) {
-
       score += 100;
       level += 1;
       player.reset();
       createGemStones.show();
       if (level > 2) {
         enemySpeed *= 1.1;
-        console.log(enemySpeed);
         stoneLocations = [];
         addRock.place();
       }
@@ -168,7 +155,6 @@ class Player {
  * @collect Defining actions which let user to collect Gemstones or Heart
  * @collect In case of collection Heart incrementing lives which is also limited max 6
  */
-
 class GemStones {
   constructor() {
     this.sprite = this.choose();
@@ -177,7 +163,7 @@ class GemStones {
   }
   update() {
     this.x = defaultStart.column[this.col] + 10;
-    this.y = defaultStart.line[this.line] + 45;
+    this.y = defaultStart.line[this.line] + 35;
     this.collect();
   }
   show() {
@@ -197,18 +183,19 @@ class GemStones {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
   choose() {
-    const collections = ['images/Gem Blue.png', 'images/Gem Orange.png', 'images/Gem Green.png', 'images/Heart.png'];
-    let random = Math.floor(Math.random() * 4);
+    const collections = ['images/Gem Blue.png', 'images/Gem Orange.png', 'images/Gem Green.png', 'images/Heart.png', 'images/Star.png'];
+    let random = Math.floor(Math.random() * 5);
     return collections[random];
   }
   collect() {
-    if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) - 45 == player.y) {
+    if ((Math.round(this.x) > player.x - 85 && Math.round(this.x) < player.x + 85) && Math.round(this.y) - 35 == player.y) {
       this.hide();
       this.score();
       if (this.sprite === 'images/Heart.png' && lives < 6) {
-        console.log('true');
-        console.log(this.sprite);
         lives += 1;
+      }
+      if (this.sprite === 'images/Star.png' && ((level > 10 && level <= 15) || (level > 20 && level <= 25) || (level > 30 && level <= 35))) {
+        enemySpeed = 50;
       }
     }
   }
@@ -222,8 +209,6 @@ class GemStones {
  * @place placing stone randomly to the canvas and preventing any coincedence of Gemstone location
  * @place collecting stone locations into an array which is created before
  */
-
-
 class Block {
   constructor() {
     this.sprite = 'images/Rock.png';
@@ -254,16 +239,17 @@ class Block {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 }
+// creating objects for Block,Gemstones and Player 
 const addRock = new Block();
 const createGemStones = new GemStones();
 const player = new Player();
-//creationg objects for enemies with starting location on the lines
+// creating objects for enemies with starting location on the lines
 let enemy1 = new Enemy(-150, defaultStart.line[1]);
 let enemy2 = new Enemy(-350, defaultStart.line[2]);
 let enemy3 = new Enemy(-550, defaultStart.line[3]);
-//collectings enemies into an array which is created before
+// collectings enemies into an array which is created before
 allEnemies.push(enemy1, enemy2, enemy3);
-
+// This listens for key presses and sends the keys to Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
   var allowedKeys = {
     37: 'left',
