@@ -130,7 +130,7 @@ class Player {
       level += 1;
       player.reset();
       createGemStones.show();
-      if (level > 2) {
+      if (level > 5) {
         enemySpeed *= 1.1;
         stoneLocations = [];
         addRock.place();
